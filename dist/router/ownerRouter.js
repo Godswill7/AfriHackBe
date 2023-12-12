@@ -8,5 +8,5 @@ router.route("/sign-in-owner").post(ownerController_1.signInOwner);
 router.route("/:ownerID/verify-owner").patch(ownerController_1.verifyOwner);
 router.route("/:ownerID/find-one-owner").get(ownerController_1.findOneOwner);
 router.route("/find-all-owners").get(ownerController_1.findAllOwner);
-router.route("/:ownerID/delete-user").delete(ownerController_1.deleteOwner);
+router.route("/:ownerID/delete-owner").delete(ownerController_1.deleteOwner);
 exports.default = router;
