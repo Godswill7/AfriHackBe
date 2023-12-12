@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const ownerController_1 = require("../controller/ownerController");
+const router = (0, express_1.Router)();
+router.route("/create-owner").post(ownerController_1.createStoreOwner);
+router.route("/sign-in-owner").post(ownerController_1.signInOwner);
+router.route("/:ownerID/verify-owner").patch(ownerController_1.verifyOwner);
+router.route("/:ownerID/find-one-owner").get(ownerController_1.findOneOwner);
+router.route("/find-all-owners").get(ownerController_1.findAllOwner);
+router.route("/:ownerID/delete-user").delete(ownerController_1.deleteOwner);
+exports.default = router;
