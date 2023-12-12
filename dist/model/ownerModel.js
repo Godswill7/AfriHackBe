@@ -3,13 +3,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const ownerModel = new mongoose_1.Schema({
     userName: {
-        type: String
+        type: String,
+        required: true,
     },
     email: {
-        type: String
+        type: String,
+        required: true,
+        unique: true,
     },
     password: {
-        type: String
+        type: String,
+        required: true
     },
     verified: {
         type: Boolean,
