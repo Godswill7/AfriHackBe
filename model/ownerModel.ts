@@ -4,13 +4,17 @@ import { Schema, Types, model } from 'mongoose';
 
 const ownerModel = new Schema<iOwnerData>({
     userName: {
-        type:String
+        type: String,
+        required:true,
     },
     email: {
-        type:String
+        type:String,
+        required:true,
+        unique:true,
     },
     password: {
-        type:String
+        type: String,
+        required:true
     },
     verified: {
         type: Boolean,
