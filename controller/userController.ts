@@ -1,4 +1,4 @@
-import { sendAccountMail } from "./../utils/email";
+import { sendAccountMail } from "../utils/email";
 import { Request, Response } from "express";
 import { HTTP } from "../error/mainError";
 import userModel from "../model/userModel";

@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.findOneUser = exports.findAllUser = exports.deleteUser = exports.verifyUser = exports.signInUser = exports.createUser = void 0;
-const email_1 = require("./../utils/email");
+const email_1 = require("../utils/email");
 const mainError_1 = require("../error/mainError");
 const userModel_1 = __importDefault(require("../model/userModel"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
