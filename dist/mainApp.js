@@ -24,6 +24,8 @@ const ownerRouter_1 = __importDefault(require("./router/ownerRouter"));
 const storeRouter_1 = __importDefault(require("./router/storeRouter"));
 const productRouter_1 = __importDefault(require("./router/productRouter"));
 const axios_1 = __importDefault(require("axios"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const mainApp = (app) => {
     app.use((0, express_1.json)());
     app.use((0, cors_1.default)({ origin: "http://localhost:5173" }));
@@ -141,10 +143,10 @@ const mainApp = (app) => {
                     arrival_airport: "",
                 },
             };
-            const URL = "https://api.us-east-1-main.seon.io/SeonRestService/fraud-api/v2/";
+            const URL = process.env.AI_URL;
             const realData = yield axios_1.default.post(URL, JSON.stringify(data), {
                 headers: {
-                    "x-api-key": "bab3f55e-8cff-4f8a-8a19-153cff7c6c1b",
+                    "x-api-key": process.env.AI_KEY,
                     "Content-Type": "Application/json",
                 },
             });

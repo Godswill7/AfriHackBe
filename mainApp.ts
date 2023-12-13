@@ -9,6 +9,8 @@ import owner from "./router/ownerRouter";
 import store from "./router/storeRouter";
 import product from "./router/productRouter";
 import axios from "axios";
+import env from "dotenv"
+env.config()
 
 export const mainApp = (app: Application) => {
   app.use(json());
@@ -132,12 +134,11 @@ export const mainApp = (app: Application) => {
           arrival_airport: "",
         },
       };
-      const URL =
-        "https://api.us-east-1-main.seon.io/SeonRestService/fraud-api/v2/";
+      const URL = process.env.AI_URL!
 
       const realData = await axios.post(URL, JSON.stringify(data), {
         headers: {
-          "x-api-key": "bab3f55e-8cff-4f8a-8a19-153cff7c6c1b",
+          "x-api-key": process.env.AI_KEY!,
           "Content-Type": "Application/json",
         },
       });
