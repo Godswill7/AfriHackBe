@@ -2,13 +2,11 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { HTTP } from "../error/mainError";
 import { Role } from "../config/role";
-import jwt from "jsonwebtoken"
 import ownerModel from "../model/ownerModel";
-import crypto from "crypto"
+import crypto from "crypto";
 import env from "dotenv";
 import { sendAccountMail } from "../utils/email";
 env.config();
-
 
 export const createStoreOwner = async (
   req: Request,
@@ -30,8 +28,8 @@ export const createStoreOwner = async (
     });
 
     sendAccountMail(storeOwner).then(() => {
-      console.log("Mail Sent ...")
-    })
+      console.log("Mail Sent ...");
+    });
 
     return res.status(HTTP.CREATE).json({
       message: "storeOwner created Successfully",
@@ -57,7 +55,7 @@ export const signInOwner = async (req: Request, res: Response) => {
         if (owner.verified && owner.token === "") {
           return res.status(HTTP.OK).json({
             message: " StoreOwner Sign In successfull",
-            data:owner
+            data: owner,
           });
         } else {
           return res.status(HTTP.BAD).json({
@@ -85,8 +83,8 @@ export const signInOwner = async (req: Request, res: Response) => {
 export const verifyOwner = async (req: Request, res: Response) => {
   try {
     const { ownerID } = req.params;
-  
-    const getOwner = await ownerModel.findById(ownerID)
+
+    const getOwner = await ownerModel.findById(ownerID);
 
     if (getOwner) {
       const realOwner = await ownerModel.findByIdAndUpdate(
@@ -103,7 +101,6 @@ export const verifyOwner = async (req: Request, res: Response) => {
         message: "storeOwner does not exist",
       });
     }
-
   } catch (error: any) {
     return res.status(HTTP.BAD).json({
       message: "Error verifying owner",
@@ -132,9 +129,12 @@ export const deleteOwner = async (
   }
 };
 
-export const findAllOwner = async (req: Request, res: Response):Promise<Response> => {
+export const findAllOwner = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
   try {
-    const findAllOwners = await ownerModel.find() ;
+    const findAllOwners = await ownerModel.find();
 
     return res.status(HTTP.OK).json({
       message: "All Owners Successfully found",
@@ -148,7 +148,10 @@ export const findAllOwner = async (req: Request, res: Response):Promise<Response
   }
 };
 
-export const findOneOwner = async (req: Request, res: Response):Promise<Response> => {
+export const findOneOwner = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
   try {
     const { ownerID } = req.params;
 

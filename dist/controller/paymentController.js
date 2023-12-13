@@ -14,13 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.payment = void 0;
 const mainError_1 = require("./../error/mainError");
-const ownerModel_1 = __importDefault(require("../model/ownerModel"));
 const https_1 = __importDefault(require("https"));
+const userModel_1 = __importDefault(require("../model/userModel"));
 const payment = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { userID } = req.body;
+        const { userID } = req.params;
         const { amount } = req.body;
-        const getUser = yield ownerModel_1.default.findById(userID);
+        const getUser = yield userModel_1.default.findById(userID);
         const params = JSON.stringify({
             email: getUser === null || getUser === void 0 ? void 0 : getUser.email,
             amount: amount * 100,
@@ -35,7 +35,8 @@ const payment = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 "Content-Type": "application/json",
             },
         };
-        const ask = https_1.default.request(options, (resp) => {
+        const ask = https_1.default
+            .request(options, (resp) => {
             let data = "";
             resp.on("data", (chunk) => {
                 data += chunk;

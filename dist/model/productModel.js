@@ -20,6 +20,9 @@ const productModel = new mongoose_1.Schema({
     imageID: {
         type: String,
     },
+    userID: {
+        type: String
+    }
 }, {
     timestamps: true,
 });

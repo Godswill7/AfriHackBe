@@ -1,19 +1,19 @@
 import { Request, Response } from "express";
 import { HTTP } from "../error/mainError";
 import storeModel from "../model/storeModel";
-import ownerModel from "../model/ownerModel";
+import userModel from "../model/userModel";
 
 export const createStore = async (req: Request, res: Response) => {
   try {
     const { userID } = req.params;
     const { storeName } = req.body;
 
-    const user = await ownerModel.findById(userID);
+    const user = await userModel.findById(userID);
 
     if (user) {
       if (user.verified && user.token === "") {
         const isStoreOwner = user?.role === "storeOwner";
-        if (isStoreOwner) {
+        if (!isStoreOwner) {
           const existingStore = await storeModel.findOne({ owner: user._id });
           if (existingStore) {
             const store = await storeModel.create({
@@ -52,7 +52,7 @@ export const findOwnerStore = async (req: Request, res: Response) => {
     const { userID } = req.params;
     const { storeID } = req.params;
 
-    const isStoreOwner = await ownerModel.findById(userID);
+    const isStoreOwner = await userModel.findById(userID);
 
     if (isStoreOwner?.role === "storeOwner") {
       const store: any = await storeModel.findById(storeID);

@@ -60,7 +60,7 @@ const signInOwner = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                 if (owner.verified && owner.token === "") {
                     return res.status(mainError_1.HTTP.OK).json({
                         message: " StoreOwner Sign In successfull",
-                        data: owner
+                        data: owner,
                     });
                 }
                 else {

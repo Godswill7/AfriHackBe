@@ -22,6 +22,9 @@ const productModel = new Schema<iProductData>(
     imageID: {
       type: String,
     },
+    userID: {
+      type:String
+    }
   },
   {
     timestamps: true,

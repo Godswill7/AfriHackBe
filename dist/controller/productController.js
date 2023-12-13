@@ -30,6 +30,7 @@ const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
                 price,
                 image: image.secure_url,
                 imageID: image.public_id,
+                userID,
             });
             findUser.store.push(products.id);
             yield (findUser === null || findUser === void 0 ? void 0 : findUser.save());
@@ -56,13 +57,13 @@ const viewAllProducts = (req, res) => __awaiter(void 0, void 0, void 0, function
         const viewProducts = yield productModel_1.default.find();
         return res.status(mainError_1.HTTP.OK).json({
             message: "Viewing all products",
-            data: viewProducts
+            data: viewProducts,
         });
     }
     catch (error) {
         return res.status(mainError_1.HTTP.BAD).json({
             message: "Error viewing all products",
-            data: error.message
+            data: error.message,
         });
     }
 });
@@ -73,13 +74,13 @@ const viewOneProducts = (req, res) => __awaiter(void 0, void 0, void 0, function
         const viewProducts = yield productModel_1.default.findById(productID);
         return res.status(mainError_1.HTTP.OK).json({
             message: "Viewing one product",
-            data: viewProducts
+            data: viewProducts,
         });
     }
     catch (error) {
         return res.status(mainError_1.HTTP.BAD).json({
             message: "Error viewing all products",
-            data: error.message
+            data: error.message,
         });
     }
 });

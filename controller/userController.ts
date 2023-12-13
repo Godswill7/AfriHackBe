@@ -1,13 +1,12 @@
-import { sendAccountMail } from './../utils/email';
+import { sendAccountMail } from "./../utils/email";
 import { Request, Response } from "express";
 import { HTTP } from "../error/mainError";
 import userModel from "../model/userModel";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import { Role } from "../config/role";
-import env from "dotenv"
-env.config()
+import env from "dotenv";
+env.config();
 
 export const createUser = async (
   req: Request,
@@ -26,17 +25,15 @@ export const createUser = async (
       token,
       password: decipher,
       role: Role.USER,
-    }); 
-    
-    
-    
+    });
+
     sendAccountMail(user).then(() => {
-      console.log("Mail Sent ...")
-    })
+      console.log("Mail Sent ...");
+    });
 
     return res.status(HTTP.CREATE).json({
       message: "User created Successfully",
-     data:user,
+      data: user,
     });
   } catch (error: any) {
     return res.status(HTTP.BAD).json({
@@ -58,7 +55,7 @@ export const signInUser = async (req: Request, res: Response) => {
         if (user.verified && user.token === "") {
           return res.status(HTTP.OK).json({
             message: "Sign In successfull",
-            data:user
+            data: user,
           });
         } else {
           return res.status(HTTP.BAD).json({
@@ -83,30 +80,27 @@ export const signInUser = async (req: Request, res: Response) => {
   }
 };
 
-export const verifyUser = async (
-  req: Request,
-  res: Response
-) => {
+export const verifyUser = async (req: Request, res: Response) => {
   try {
     const { userID } = req.params;
 
-    const getUser = await userModel.findById(userID)
+    const getUser = await userModel.findById(userID);
 
     if (getUser) {
-        const realUser = await userModel.findByIdAndUpdate(
-            getUser._id,
-            { verified: true, token: "" },
-            { new: true }
+      const realUser = await userModel.findByIdAndUpdate(
+        getUser._id,
+        { verified: true, token: "" },
+        { new: true }
       );
-       return res.status(HTTP.UPDATE).json({
-         message: "user Verified",
-         data: realUser,
-       });
+      return res.status(HTTP.UPDATE).json({
+        message: "user Verified",
+        data: realUser,
+      });
     } else {
       return res.status(HTTP.BAD).json({
-        message:"token Invalid / User does not exist"
-      })
-    }  
+        message: "token Invalid / User does not exist",
+      });
+    }
   } catch (error: any) {
     return res.status(HTTP.BAD).json({
       message: "Error verifying user",

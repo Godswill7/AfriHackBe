@@ -15,16 +15,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteOwnerStore = exports.findOwnerStore = exports.createStore = void 0;
 const mainError_1 = require("../error/mainError");
 const storeModel_1 = __importDefault(require("../model/storeModel"));
-const ownerModel_1 = __importDefault(require("../model/ownerModel"));
+const userModel_1 = __importDefault(require("../model/userModel"));
 const createStore = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { userID } = req.params;
         const { storeName } = req.body;
-        const user = yield ownerModel_1.default.findById(userID);
+        const user = yield userModel_1.default.findById(userID);
         if (user) {
             if (user.verified && user.token === "") {
                 const isStoreOwner = (user === null || user === void 0 ? void 0 : user.role) === "storeOwner";
-                if (isStoreOwner) {
+                if (!isStoreOwner) {
                     const existingStore = yield storeModel_1.default.findOne({ owner: user._id });
                     if (existingStore) {
                         const store = yield storeModel_1.default.create({
@@ -66,7 +66,7 @@ const findOwnerStore = (req, res) => __awaiter(void 0, void 0, void 0, function*
     try {
         const { userID } = req.params;
         const { storeID } = req.params;
-        const isStoreOwner = yield ownerModel_1.default.findById(userID);
+        const isStoreOwner = yield userModel_1.default.findById(userID);
         if ((isStoreOwner === null || isStoreOwner === void 0 ? void 0 : isStoreOwner.role) === "storeOwner") {
             const store = yield storeModel_1.default.findById(storeID);
             if (store) {

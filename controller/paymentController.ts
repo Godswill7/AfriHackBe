@@ -1,21 +1,21 @@
-import { Request, Response } from 'express';
-import { HTTP } from './../error/mainError';
-import ownerModel from '../model/ownerModel';
-import https from "https"
+import { Request, Response } from "express";
+import { HTTP } from "./../error/mainError";
+import https from "https";
+import userModel from "../model/userModel";
 
 export const payment = async (req: Request, res: Response) => {
   try {
-    const { userID } = req.body;
+    const { userID } = req.params;
     const { amount } = req.body;
 
-    const getUser = await ownerModel.findById(userID)
+    const getUser = await userModel.findById(userID);
 
     const params = JSON.stringify({
       email: getUser?.email,
       amount: amount * 100,
     });
 
-    const options = {
+    const options = { 
       hostname: "api.paystack.co",
       port: 443,
       path: "/transaction/initialize",
@@ -27,7 +27,8 @@ export const payment = async (req: Request, res: Response) => {
       },
     };
 
-    const ask = https.request(options, (resp) => {
+    const ask = https
+      .request(options, (resp) => {
         let data = "";
 
         resp.on("data", (chunk) => {

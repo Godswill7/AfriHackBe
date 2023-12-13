@@ -24,6 +24,7 @@ interface iProduct {
   price: number;
   image: string;
   imageID: string;
+  userID: string;
 }
 
 export interface iUserData extends iUser, Document {}

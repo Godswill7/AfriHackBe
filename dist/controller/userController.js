@@ -60,7 +60,7 @@ const signInUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 if (user.verified && user.token === "") {
                     return res.status(mainError_1.HTTP.OK).json({
                         message: "Sign In successfull",
-                        data: user
+                        data: user,
                     });
                 }
                 else {
@@ -102,7 +102,7 @@ const verifyUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         }
         else {
             return res.status(mainError_1.HTTP.BAD).json({
-                message: "token Invalid / User does not exist"
+                message: "token Invalid / User does not exist",
             });
         }
     }
